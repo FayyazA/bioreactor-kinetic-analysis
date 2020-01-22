@@ -1,0 +1,167 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>sim_rccopy</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-10-10"><meta name="DC.source" content="sim_rccopy.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Generate a circuit of the form in lab (resistor and capacitor in series)</a></li><li><a href="#3">Feed the input voltage step function through the circuit</a></li><li><a href="#4">Plot response if the capacitor value is unknown</a></li><li><a href="#5">Log data in output struct</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> [data] = sim_rccopy(Vin, varargin)
+</pre><h2 id="2">Generate a circuit of the form in lab (resistor and capacitor in series)</h2><pre class="codeinput"><span class="comment">%Resistor, in ohms</span>
+R = 10000;
+<span class="comment">%Possible capacitor values, in farads</span>
+possible_C = [.00047, .001, .0022, .0047, .01, .022]*10^(-6);
+<span class="comment">%Pick a random value from the 5 options, or assign the defined value</span>
+<span class="keyword">if</span> isempty(varargin)
+    C = randsample(possible_C,1);
+<span class="keyword">else</span>
+    C = varargin{1};
+<span class="keyword">end</span>
+</pre><h2 id="3">Feed the input voltage step function through the circuit</h2><pre class="codeinput"><span class="comment">%Measure voltage across capacitor as the output, which we will call Vout</span>
+<span class="comment">%Assume Vout(0)=0, uncharged capacitor</span>
+
+<span class="comment">%Create a 10ms time vector, in ms, sampled at 10MHz</span>
+<span class="comment">%time steps = 1/100MHz = 1*10^(-4)ms/sample</span>
+dt = 1e-4;
+t=0:dt:10;
+Vout = zeros(size(Vin));
+
+<span class="comment">%Create a generic function handle that will generate an output at each time</span>
+<span class="comment">%point given the previous voltage time since last sample, dt</span>
+R2 = 10000;
+rc_fxn = @(Vin, Vout_0, dt, R, C)Vin+(Vout_0-Vin)*exp(-(dt/1000)/(R*C));
+
+C2 = 47*10^-9;
+<span class="keyword">for</span> k = 2:50000
+    Vout(k) = rc_fxn(Vin(k), Vout(k-1), dt ,R+R2, C);
+<span class="keyword">end</span>
+<span class="keyword">for</span> k = 50001:length(Vin)
+    Vout(k) = rc_fxn(Vin(k),Vout(k-1),dt,R+R2,C+C2);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput error">Not enough input arguments.
+
+Error in sim_rccopy (line 25)
+Vout = zeros(size(Vin));
+</pre><h2 id="4">Plot response if the capacitor value is unknown</h2><pre class="codeinput"><span class="keyword">if</span> isempty(varargin)
+    figure; plot(t,Vout)
+    ylabel(<span class="string">'Voltage across C1 (V)'</span>)
+    xlabel(<span class="string">'Time (ms)'</span>)
+    axis([0,10, -4.5,4.5])
+<span class="keyword">end</span>
+</pre><h2 id="5">Log data in output struct</h2><pre class="codeinput">data = struct(<span class="string">'R'</span>,R, <span class="string">'C'</span>,C ,<span class="string">'Vout'</span>,Vout);
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+function [data] = sim_rccopy(Vin, varargin)
+
+%% Generate a circuit of the form in lab (resistor and capacitor in series)
+
+%Resistor, in ohms
+R = 10000;
+%Possible capacitor values, in farads
+possible_C = [.00047, .001, .0022, .0047, .01, .022]*10^(-6);
+%Pick a random value from the 5 options, or assign the defined value
+if isempty(varargin)
+    C = randsample(possible_C,1);
+else
+    C = varargin{1};
+end
+
+
+%% Feed the input voltage step function through the circuit
+%Measure voltage across capacitor as the output, which we will call Vout
+%Assume Vout(0)=0, uncharged capacitor
+
+%Create a 10ms time vector, in ms, sampled at 10MHz
+%time steps = 1/100MHz = 1*10^(-4)ms/sample
+dt = 1e-4;
+t=0:dt:10;
+Vout = zeros(size(Vin));
+
+%Create a generic function handle that will generate an output at each time
+%point given the previous voltage time since last sample, dt
+R2 = 10000;
+rc_fxn = @(Vin, Vout_0, dt, R, C)Vin+(Vout_0-Vin)*exp(-(dt/1000)/(R*C));
+
+C2 = 47*10^-9;
+for k = 2:50000
+    Vout(k) = rc_fxn(Vin(k), Vout(k-1), dt ,R+R2, C);
+end
+for k = 50001:length(Vin)
+    Vout(k) = rc_fxn(Vin(k),Vout(k-1),dt,R+R2,C+C2);
+end
+
+%% Plot response if the capacitor value is unknown
+if isempty(varargin)
+    figure; plot(t,Vout)
+    ylabel('Voltage across C1 (V)')
+    xlabel('Time (ms)')
+    axis([0,10, -4.5,4.5])
+end
+
+%% Log data in output struct
+data = struct('R',R, 'C',C ,'Vout',Vout);
+
+
+
+##### SOURCE END #####
+--></body></html>
