@@ -52,4 +52,5 @@ xlswrite("Lacin_summary_101119_NoT1Lex_0.5_bound4.xlsx",lacin_table)
 xlswrite("Lacex_summary_101119_NoT1Lex_0.5_bound4.xlsx",lacex_table)
 xlswrite("AIC9parameters_bound4.xlsx",AIC_vec)
 %xlswrite("Atablescsmath",A_table)
-%xlswrite("Ctablescsmath",C_tabl
+%xlswrite("Ctablescsmath",C_table)
+end
