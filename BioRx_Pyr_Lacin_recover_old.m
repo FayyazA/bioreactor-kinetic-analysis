@@ -47,7 +47,7 @@ function Mest_dyn = model_exchange_dyn(x)
        
        flip=30 ; % low flip angle (degree)
         
-       Mest_dyn(:,k) = (K^-1)*Inpfunc(:,k-1) + expm(K*TR) * (Mest_dyn(:,k-1) - (K^-1)*Inpfunc(:,k-1));%Mest_dyn(:,k) = expm(K*TR)*Mest_dyn(:,k-1)*cos(flip*pi/180) +Inpfunc(:,k-1);
+       Mest_dyn(:,k) = (K^-1)*Inpfunc(:,k-1) + expm(K*TR) * (Mest_dyn(:,k-1)*cos(flip*pi/180) - (K^-1)*Inpfunc(:,k-1));%Mest_dyn(:,k) = expm(K*TR)*Mest_dyn(:,k-1)*cos(flip*pi/180) +Inpfunc(:,k-1);
     end
 end
 %%
