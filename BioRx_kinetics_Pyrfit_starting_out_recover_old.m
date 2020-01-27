@@ -30,7 +30,8 @@ X0 = [1/48,0.01,0.15,...    %1/T1P, Kpl,FlowPyr
 
 function Mest_dyn = model_exchange_dyn(x)                          %model_exchange_dyn(x) returns matrix Mest_dyn
 % Inital conditions
-    Mest_dyn(:,1) = S_dyn(:,1);                                    %First Column of Mest_dyn set to First Column of Pyruvate Concentration
+    %Mest_dyn(:,1) = S_dyn(:,1);                                    %First Column of Mest_dyn set to First Column of Pyruvate Concentration
+    Mest_dyn = S_dyn;
     K  = [-x(1)-x(2)-x(3)] ; %Pyr=P(-R1P-kpl-Flow)                  Setting Rate Constant of dpyr = k * pyr
     Inpfunc(1) = [0];                                              %Sets first column element as 0   
 

@@ -32,7 +32,8 @@ X0 = [A(1),A(2),A(3),...    %1/T1Pyr, Kpl, Flow
     
 function Mest_dyn = model_exchange_dyn(x)
 % Inital conditions
-    Mest_dyn(:,1) = S_dyn(:,1);
+    %Mest_dyn(:,1) = S_dyn(:,1);
+    Mest_dyn = S_dyn;
 
    
        K  = [-x(1)-x(2)-x(3),x(5);... %Pyr=P(-R1P-kpl-Flow)+Lac_in(Klp)
