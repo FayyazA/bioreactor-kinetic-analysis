@@ -21,7 +21,7 @@ AIC_vec = zeros(16,3);
 for k = 1 : length(theFiles)
     data_set = importfilenew("C:\Users\Owner\Downloads\UOK262_UMRC6_HK2_BioRx_2peaks_control_data 02152019 with lactate added",theFiles(k),starting_entries(k))
     input_vector = data_set.Pyr_area';
-    [X,S_fit_dyn] = BioRx_kinetics_Pyrfit_starting_out_recover_old(input_vector,strcat(theFiles(k),"Pyr_othersolution"));
+    [X,S_fit_dyn] = BioRx_kinetics_Pyrfit_starting_out_recover_old(input_vector,strcat(theFiles(k),"Pyr_othersolutionbc"));
     %pyr_table(k,:) = results1;
     %A_table(k,:) = round1_output;
     my_table = array2table(data_set{:,[4,8]});
@@ -30,7 +30,7 @@ for k = 1 : length(theFiles)
     my_table = rows2vars(my_table);
     size_table = size(my_table);
     my_array = table2array(my_table(:,2:size_table(2)));
-    [C,S_fitdyn2] = BioRx_Pyr_Lacin_recover_old(my_array,X,strcat(theFiles(k),"Lacin_othersolution")); %[round2_output,fit2,results2] = BioRx_kinetics_Lacin_NoT1Lin(my_array,round1_output,strcat(theFiles(k),"Lacincs"));
+    [C,S_fitdyn2] = BioRx_Pyr_Lacin_recover_old(my_array,X,strcat(theFiles(k),"Lacin_othersolutionbc")); %[round2_output,fit2,results2] = BioRx_kinetics_Lacin_NoT1Lin(my_array,round1_output,strcat(theFiles(k),"Lacincs"));
     lacin_table(k,:) = C;
     %C_table(k,:) = round2_output;
     my_table_2 = array2table(data_set{:,[4,8,10]});
@@ -41,16 +41,16 @@ for k = 1 : length(theFiles)
     my_table_2 = rows2vars(my_table_2);
     size_table_2 = size(my_table_2)
     my_array_2 = table2array(my_table_2(:,2:size_table(2)));
-    [E,Sfitdyn3] = BioRx_3mets_Lac2pks_recover_old(my_array_2,X,C,strcat(theFiles(k),"Lacex_othersolution")); %[fit3,results3] = BioRx_kinetics_Lac2pks_NoT1s(my_array_2,round1_output,round2_output,strcat(theFiles(k),"Lacexcs"));
+    [E,Sfitdyn3] = BioRx_3mets_Lac2pks_recover_old(my_array_2,X,C,strcat(theFiles(k),"Lacex_othersolutionbc")); %[fit3,results3] = BioRx_kinetics_Lac2pks_NoT1s(my_array_2,round1_output,round2_output,strcat(theFiles(k),"Lacexcs"));
     AIC = aic_3(my_array_2-Sfitdyn3,length(S_fit_dyn),9);
     AIC_vec(k,:) = AIC;
     lacex_table(k,:) = E;
   drawnow; % Force display to update immediately.
 end
 %xlswrite("Pyr_summarycsmath.xlsx",pyr_table)
-xlswrite("Lacin_summary_othersolution.xlsx",lacin_table)
-xlswrite("Lacex_summary_othersolution.xlsx",lacex_table)
-xlswrite("AICothersolution.xlsx",AIC_vec)
+xlswrite("Lacin_summary_othersolutionbc.xlsx",lacin_table)
+xlswrite("Lacex_summary_othersolutionbc.xlsx",lacex_table)
+xlswrite("AICothersolutionbc.xlsx",AIC_vec)
 %xlswrite("Atablescsmath",A_table)
 %xlswrite("Ctablescsmath",C_table)
 end

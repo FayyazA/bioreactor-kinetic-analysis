@@ -61,10 +61,10 @@ end
 %opts = optimset('MaxIter',800,'MaxFunEvals', 1e30,'TolX',1e-12,'TolFun', min(abs(S_dyn(:,end)))/1e12,'FinDiffType','central');
 opts = optimset('MaxIter',1000,'MaxFunEvals', 1e30,'TolX',1e-6,'TolFun', min(abs(S_dyn(:,end)))/1e12,'FinDiffType','central');
 
-lb = [1/51,0.0001, 1E-8,... %A(1)-.0001
-      1/30, 0,.01];
- ub = [1/47, 0.08,10.0,... %A(1)+.0001
-     1/22, 0.5,10];
+lb = [1/51,0.0001, 1E-8,...%[1/51,0.0001, 1E-8,... %A(1)-.0001
+      1/30, 0, 0.01];%1/30, 0,.01];
+ ub = [1/47, 0.5,10.0,...%[1/47, 0.08,10.0,... %A(1)+.0001
+     1/10, 10, 10]; %1/22, 0.5,10];
 
 
 [X,resnorm,residual,exitflag,output,lambda,jacobian]  = lsqnonlin(@g_dyn, X0, lb, ub, opts);
