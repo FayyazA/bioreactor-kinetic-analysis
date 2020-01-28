@@ -36,8 +36,8 @@ function Mest_dyn = model_exchange_dyn(x)
     Mest_dyn = S_dyn;
 
    
-       K  = [-x(1)-x(2)-x(3),x(5);... %Pyr=P(-R1P-kpl-Flow)+Lac_in(Klp)
-          x(2),-x(4)-x(5)-x(6)];   %Lac_in=P(kpl)+Lac_in(-R1PL-klp-K(MCT4))   
+       K  = [-x(1)-x(2)-x(3),0;... %Pyr=P(-R1P-kpl-Flow)+Lac_in(Klp)
+          x(2),-x(4)-x(6)];   %Lac_in=P(kpl)+Lac_in(-R1PL-klp-K(MCT4))   
       
     Inpfunc(:,1) = [0;0];
 
