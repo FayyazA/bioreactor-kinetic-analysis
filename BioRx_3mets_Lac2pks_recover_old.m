@@ -71,7 +71,7 @@ opts = optimset('MaxIter',1000,'MaxFunEvals', 1e30,'TolX',1e-6,'TolFun', min(abs
 lb = [1/51, .0001, 1E-8,...%[1/51, .0001, 1E-8,... % 1/T1Pyr, Kpl, Flow_pyr Flow_pyr used to be C(3)*0.9 1/T1P was C(1)-.001
       C(4)-.001, 0, 0.001,...%C(4)-.001, 0, 0.001,... %1/T1Lin, Klp, K(MCT4)
       1/37.7, 1E-8, 0]; % 1/T1Lout,Flow_lacout, K(MCT1)
- ub = [1/47, 0.5, 10.0,...%[1/47, 0.08, 10.0,... % 1/T1Pyr, Kpl, Flow_pyr Flow_pyr used to be C(3)*1.1 1/T1P was C(1)-.001
+ ub = [1/47, 0.1, 10.0,...%[1/47, 0.08, 10.0,... % 1/T1Pyr, Kpl, Flow_pyr Flow_pyr used to be C(3)*1.1 1/T1P was C(1)-.001
       C(4)+.001, 1E-20, 10,...%C(4)+.001, 0.1, 10,... %1/T1Lin, Klp, K(MCT4)
       1/35.7, 10.0, 1E-20 ]; % 1/T1Lout,Flow_lacout, K(MCT1)
     
