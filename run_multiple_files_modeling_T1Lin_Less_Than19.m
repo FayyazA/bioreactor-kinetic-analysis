@@ -41,7 +41,7 @@ for k = 1 : length(theFiles)
     my_table_2 = rows2vars(my_table_2);
     size_table_2 = size(my_table_2)
     my_array_2 = table2array(my_table_2(:,2:size_table(2)));
-    [E,Sfitdyn3] = BioRx_3mets_Lac2pks_NoT1Lex(my_array_2,X,C,strcat(theFiles(k),"LacexFinalConfirmation")); %[fit3,results3] = BioRx_kinetics_Lac2pks_NoT1s(my_array_2,round1_output,round2_output,strcat(theFiles(k),"Lacexcs"));
+    [E,Sfitdyn3] = BioRx_3mets_Lac2pks_recover_old_T1Lin_19(my_array_2,X,C,strcat(theFiles(k),"LacexFinalConfirmation")); %[fit3,results3] = BioRx_kinetics_Lac2pks_NoT1s(my_array_2,round1_output,round2_output,strcat(theFiles(k),"Lacexcs"));
     AIC = aic_3(my_array_2-Sfitdyn3,length(S_fit_dyn),9);
     AIC_vec(k,:) = AIC;
     lacex_table(k,:) = E;
@@ -50,7 +50,7 @@ end
 %xlswrite("Pyr_summarycsmath.xlsx",pyr_table)
 xlswrite("Lacin_summary_FinalConfirmation.xlsx",lacin_table)
 xlswrite("Lacex_summary_FinalConfirmation.xlsx",lacex_table)
-xlswrite("AIC9parameters_bound4.xlsx",AIC_vec)
+xlswrite("AIC9parameters_FinalConfirmation.xlsx",AIC_vec)
 %xlswrite("Atablescsmath",A_table)
 %xlswrite("Ctablescsmath",C_table)
 end
