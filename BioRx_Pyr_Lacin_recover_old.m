@@ -63,7 +63,7 @@ opts = optimset('MaxIter',1000,'MaxFunEvals', 1e30,'TolX',1e-6,'TolFun', min(abs
 lb = [1/51,0.0001, 1E-8,... %A(1)-.0001
       1/30, 0,.01];
  ub = [1/47, 0.08,10.0,... %A(1)+.0001
-     1/22, 0.5,10];
+     1/10, 0.5,10];
 
 
 [X,resnorm,residual,exitflag,output,lambda,jacobian]  = lsqnonlin(@g_dyn, X0, lb, ub, opts);
