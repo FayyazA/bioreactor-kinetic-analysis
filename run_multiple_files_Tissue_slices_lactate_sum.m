@@ -6,6 +6,8 @@ lacin_table = zeros(12,10);
 lacex_table = zeros(10,18);
 %A_table = zeros(10,6);
 %C_table = zeros(10,4);
+R1L_vec = [1/10,1/12,1/14,1/16,1/18,1/20,1/24,1/26,1/28,1/30,1/32,1/34,1/36,1/38];
+for j = 1 : length(R1L_vec)
 for k = 1 : length(theFiles)
     data_set = importfilenew("C:\Users\Owner\Downloads\UOK262_UMRC6_HK2_BioRx_2peaks_control_data 02152019 with lactate added",theFiles(k),starting_entries(k))
     input_vector = data_set{:,4}';
@@ -18,7 +20,7 @@ for k = 1 : length(theFiles)
     [X,S_fit_dyn,results] = BioRx_kinetics_Pyrfit_starting_out_recover_old(input_vector,strcat(theFiles(k),"PyrTissuesmooth"));
     pyr_table(k,:) = results;
     %A_table(k,:) = round1_output;
-    [C,S_fitdyn2] = Tissue_slices(my_array,X,strcat(theFiles(k),"LacTissue")); %[round2_output,fit2,results2] = BioRx_kinetics_Lacin_NoT1Lin(my_array,round1_output,strcat(theFiles(k),"Lacincs"));
+    [C,S_fitdyn2] = Tissue_slices(my_array,X,strcat(theFiles(k),"LacTissue",string(j)),R1L_vec(j)); %[round2_output,fit2,results2] = BioRx_kinetics_Lacin_NoT1Lin(my_array,round1_output,strcat(theFiles(k),"Lacincs"));
     lacin_table(k,:) = C;
     %C_table(k,:) = round2_output;
     %my_table_2 = array2table(data_set{:,[4,8,10]});
@@ -33,8 +35,10 @@ for k = 1 : length(theFiles)
     %lacex_table(k,:) = E;
   drawnow; % Force display to update immediately.
 end
-xlswrite("Pyr_LooserBounds.xlsx",pyr_table)
-xlswrite("LacTissueLooserBounds.xlsx",lacin_table)
+xlswrite(strcat("Pyr_AllBounds",string(j),".xlsx"),pyr_table)
+xlswrite(strcat("Lac_AllBounds",string(j),".xlsx"),lacin_table)
+end
+
 %xlswrite("Lacex_summaryFINALsmooth.xlsx",lacex_table)
 %xlswrite("Atablescsmath",A_table)
 %xlswrite("Ctablescsmath",C_table)
