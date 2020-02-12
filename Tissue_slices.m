@@ -1,4 +1,4 @@
-function [result_vector,Sfit_dyn]=Tissue_slices(S_dyn,A,filename,R1L)
+function [result_vector,Sfit_dyn]=Tissue_slices(S_dyn,A,filename,R1L,FL)
 % Written by Renuka for 5mm Bioreactor on December 18 2014
 %
 % S_dyn is a matrix of size # metabolites(pyr, lac_in)  by time
@@ -36,7 +36,7 @@ function Mest_dyn = model_exchange_dyn(x)
 
    
        K  = [-x(1)-x(2)-x(3),x(4);... %Pyr=P(-R1P-kpl-Flow)+Lac_in(Klp)
-          x(2),-x(4)-R1L-x(6)];   %Lac=P(kpl)+Lac(-klp-1/T1L-Flow_Lac)   
+          x(2),-x(4)-R1L-FL];   %Lac=P(kpl)+Lac(-klp-1/T1L-Flow_Lac)   
       
     Inpfunc(:,1) = [0;0];
 
