@@ -36,7 +36,7 @@ Nt = length(S_dyn);
 
 X0 = [C(1), C(2), C(3),... % 1/T1Pyr, Kpl, Flow_pyr
     C(4), C(5), 0.03,... %1/T1Lin, Klp, K(MCT4)
-    1/36.7, C(3)*4, 0]; % 1/T1Lout,Flow_lacout, K(MCT1)
+    1/36.7, 0.15, 0]; % 1/T1Lout,Flow_lacout, K(MCT1)
     
 function Mest_dyn = model_exchange_dyn(x)
 % Inital conditions
@@ -69,10 +69,10 @@ opts = optimset('MaxIter',1000,'MaxFunEvals', 1e30,'TolX',1e-6,'TolFun', min(abs
 
 lb = [1/51, .0001, 1E-8,... % 1/T1Pyr, Kpl, Flow_pyr Flow_pyr used to be C(3)*0.9 1/T1P was C(1)-.001
       C(4)-0.001, 0, 0.001,... %1/T1Lin, Klp, K(MCT4)
-      1/37.7, 1E-8, 0]; % 1/T1Lout,Flow_lacout, K(MCT1)
+      1/37.7, 0.01, 0]; % 1/T1Lout,Flow_lacout, K(MCT1)
  ub = [1/47, 0.08, 10.0,... % 1/T1Pyr, Kpl, Flow_pyr Flow_pyr used to be C(3)*1.1 1/T1P was C(1)-.001
       C(4)+0.001, 0.1, 10,... %1/T1Lin, Klp, K(MCT4)
-      1/35.7, 10.0, 0.9 ]; % 1/T1Lout,Flow_lacout, K(MCT1)
+      1/35.7, 0.5, 0.9 ]; % 1/T1Lout,Flow_lacout, K(MCT1)
     
 [X,resnorm,residual,exitflag,output,lambda,jacobian]  = lsqnonlin(@g_dyn, X0, lb, ub, opts);
 Sfit_dyn = model_exchange_dyn(X);
