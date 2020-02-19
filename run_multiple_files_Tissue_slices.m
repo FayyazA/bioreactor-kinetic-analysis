@@ -15,7 +15,7 @@ for k = 1 : length(theFiles)
     my_table = rows2vars(my_table);
     size_table = size(my_table);
     my_array = table2array(my_table(:,2:size_table(2)));
-    [X,S_fit_dyn] = BioRx_kinetics_Pyrfit_starting_out(input_vector,strcat(theFiles(k),"PyrTissuesmooth"));
+    [X,S_fit_dyn] = BioRx_kinetics_Pyrfit_starting_out_recover_old(input_vector,strcat(theFiles(k),"PyrTissuesmooth"));
     %pyr_table(k,:) = results1;
     %A_table(k,:) = round1_output;
     [C,S_fitdyn2] = Tissue_slices(my_array,X,strcat(theFiles(k),"LacTissue")); %[round2_output,fit2,results2] = BioRx_kinetics_Lacin_NoT1Lin(my_array,round1_output,strcat(theFiles(k),"Lacincs"));
@@ -34,7 +34,7 @@ for k = 1 : length(theFiles)
   drawnow; % Force display to update immediately.
 end
 %xlswrite("Pyr_summarycsmath.xlsx",pyr_table)
-xlswrite("LacTissue0222final_0523_confirm.xlsx",lacin_table)
+xlswrite("LacTissueT1LBound10.xlsx",lacin_table)
 %xlswrite("Lacex_summaryFINALsmooth.xlsx",lacex_table)
 %xlswrite("Atablescsmath",A_table)
 %xlswrite("Ctablescsmath",C_table)
