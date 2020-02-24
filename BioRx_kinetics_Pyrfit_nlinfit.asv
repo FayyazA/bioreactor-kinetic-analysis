@@ -64,7 +64,7 @@ lb = [1/51, .0001, 1E-8,...
 % ci = nlparci(beta,R,'jacobian',J);
 % X = beta;
 % Sfit_dyn = model_exchange_dyn(beta);
-[X,resnorm, residual, exitflag, output, lambda, jacobian] = lsqcurvefit(@g_dyn,X0,1:length(S_dyn),S_dyn',lb,ub,opts);
+[X,resnorm, residual, exitflag, output, lambda, jacobian] = lsqcurvefit(@g_dyn,X0,zeros(3,length(S_dyn))',S_dyn',lb,ub,opts);
 Sfit_dyn = model_exchange_dyn(X);
 ci = nlparci(X,residual,'jacobian',jacobian);
 exitflag

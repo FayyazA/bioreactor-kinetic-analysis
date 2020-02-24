@@ -78,10 +78,16 @@ lb = [1/51, .0001, 1E-8,... % 1/T1Pyr, Kpl, Flow_pyr Flow_pyr used to be C(3)*0.
 %Sfit_dyn = model_exchange_dyn(X);
 %ci = nlparci(X,residual,'jacobian',jacobian);
 
-Sfit_dyn = model_exchange_dyn(X0);
-[beta, R, J, CovB, MSE, ErrorModelInfo] = nlinfit((1:length(Sfit_dyn)),Sfit_dyn,@g_dyn,X0,opts);
-ci = nlparci(beta,R,'jacobian',J);
-X = beta;
+% Sfit_dyn = model_exchange_dyn(X0);
+% [beta, R, J, CovB, MSE, ErrorModelInfo] = nlinfit((1:length(Sfit_dyn)),Sfit_dyn,@g_dyn,X0,opts);
+% ci = nlparci(beta,R,'jacobian',J);
+% X = beta;
+
+[X,resnorm, residual, exitflag, output, lambda, jacobian] = lsqcurvefit(@g_dyn,X0,(1:length(S_dyn)),S_dyn',lb,ub,opts);
+Sfit_dyn = model_exchange_dyn(X);
+ci = nlparci(X,residual,'jacobian',jacobian);
+exitflag
+output
 
 T1P=(1/C(1))
 T1Lin=(1/X(4))

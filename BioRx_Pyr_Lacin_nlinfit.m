@@ -53,7 +53,7 @@ end
 %%
 function res_dyn = g_dyn(x,X0)
         res_dyn = model_exchange_dyn(x) - S_dyn; 
-        res_dyn = res_dyn(:)';
+        res_dyn = res_dyn(:);
 end
 
 % This should be optimized
@@ -69,10 +69,15 @@ lb = [1/51,0.0001, 1E-8,... %A(1)-.0001
 %[X,resnorm,residual,exitflag,output,lambda,jacobian]  = lsqnonlin(@g_dyn, X0, lb, ub, opts);
 %Sfit_dyn = model_exchange_dyn(X);
 %ci = nlparci(X,residual,'jacobian',jacobian);
-Sfit_dyn = model_exchange_dyn(X0);
-[beta, R, J, CovB, MSE, ErrorModelInfo] = nlinfit((1:length(Sfit_dyn)),Sfit_dyn,@g_dyn,X0,opts);
-ci = nlparci(beta,R,'jacobian',J);
-X = beta;
+% Sfit_dyn = model_exchange_dyn(X0);
+% [beta, R, J, CovB, MSE, ErrorModelInfo] = nlinfit((1:length(Sfit_dyn)),Sfit_dyn,@g_dyn,X0,opts);
+% ci = nlparci(beta,R,'jacobian',J);
+% X = beta;
+[X,resnorm, residual, exitflag, output, lambda, jacobian] = lsqcurvefit(@g_dyn,X0,zeros(2,length(S_dyn))',S_dyn',lb,ub,opts);
+Sfit_dyn = model_exchange_dyn(X);
+ci = nlparci(X,residual,'jacobian',jacobian);
+exitflag
+output
 
 T1Pyr=1/X(1)
 T1Lin=(1/X(4))
