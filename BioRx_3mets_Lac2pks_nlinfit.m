@@ -59,7 +59,7 @@ function Mest_dyn = model_exchange_dyn(x)
     end
 end
 %%
-function res_dyn = g_dyn(x)
+function res_dyn = g_dyn(x,X0)
         res_dyn = model_exchange_dyn(x) - S_dyn; 
         res_dyn = res_dyn(:);
 end
