@@ -66,11 +66,14 @@ lb = [1/51,0.0001, 1E-8,... %A(1)-.0001
      1/22, 0.5,10];
 
 
-[X,resnorm,residual,exitflag,output,lambda,jacobian]  = lsqnonlin(@g_dyn, X0, lb, ub, opts);
-Sfit_dyn = model_exchange_dyn(X);
-ci = nlparci(X,residual,'jacobian',jacobian);
-exitflag
-output
+%[X,resnorm,residual,exitflag,output,lambda,jacobian]  = lsqnonlin(@g_dyn, X0, lb, ub, opts);
+%Sfit_dyn = model_exchange_dyn(X);
+%ci = nlparci(X,residual,'jacobian',jacobian);
+Sfit_dyn = model_exchange_dyn(X0);
+[beta, R, J, CovB, MSE, ErrorModelInfo] = nlinfit((1:length(Sfit_dyn)),Sfit_dyn,@g_dyn,X0,opts);
+ci = nlparci(beta,R,'jacobian',J);
+X = beta;
+
 T1Pyr=1/X(1)
 T1Lin=(1/X(4))
 Kpl=(X(2))

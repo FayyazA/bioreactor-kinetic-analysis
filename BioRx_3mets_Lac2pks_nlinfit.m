@@ -74,11 +74,15 @@ lb = [1/51, .0001, 1E-8,... % 1/T1Pyr, Kpl, Flow_pyr Flow_pyr used to be C(3)*0.
       C(4)+.001, 0.1, 10,... %1/T1Lin, Klp, K(MCT4)
       1/35.7, 10.0, 0.9 ]; % 1/T1Lout,Flow_lacout, K(MCT1)
     
-[X,resnorm,residual,exitflag,output,lambda,jacobian]  = lsqnonlin(@g_dyn, X0, lb, ub, opts);
-Sfit_dyn = model_exchange_dyn(X);
-ci = nlparci(X,residual,'jacobian',jacobian);
-exitflag
-output
+%[X,resnorm,residual,exitflag,output,lambda,jacobian]  = lsqnonlin(@g_dyn, X0, lb, ub, opts);
+%Sfit_dyn = model_exchange_dyn(X);
+%ci = nlparci(X,residual,'jacobian',jacobian);
+
+Sfit_dyn = model_exchange_dyn(X0);
+[beta, R, J, CovB, MSE, ErrorModelInfo] = nlinfit((1:length(Sfit_dyn)),Sfit_dyn,@g_dyn,X0,opts);
+ci = nlparci(beta,R,'jacobian',J);
+X = beta;
+
 T1P=(1/C(1))
 T1Lin=(1/X(4))
 T1Lex=(1/X(7))
