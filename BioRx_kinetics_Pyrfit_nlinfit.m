@@ -44,9 +44,9 @@ function Mest_dyn = model_exchange_dyn(x)                          %model_exchan
     end
 end
 %%
-function res_dyn = g_dyn(x)                                               %Makes function called g_dyn that outputs the residuals vector
+function res_dyn = g_dyn(x,X0)                                               %Makes function called g_dyn that outputs the residuals vector
         res_dyn = model_exchange_dyn(x) - S_dyn;                          %residuals are set to Input Function - Pyruvate Concentration
-        res_dyn = res_dyn(:);                                             %Make a copy of residuals and reassign?
+        res_dyn = res_dyn(:)';                                             %Make a copy of residuals and reassign?
 end
 
 % This should be optimized MaxIter final version = 5000, use 2000 for
@@ -58,11 +58,12 @@ lb = [1/51, .0001, 1E-8,...
  ub = [1/47,.1,10.0,...
       X0(4)+2, 22, 1e10];
 
-[X,resnorm,residual,exitflag,output,lambda,jacobian]  = lsqnonlin(@g_dyn, X0, lb, ub, opts);
-Sfit_dyn = model_exchange_dyn(X);
-ci = nlparci(X,residual,'jacobian',jacobian);
-exitflag
-output
+%%[X,resnorm,residual,exitflag,output,lambda,jacobian]  = lsqnonlin(@g_dyn, X0, lb, ub, opts);
+Sfit_dyn = model_exchange_dyn(X0);
+[beta, R, J, CovB, MSE, ErrorModelInfo] = nlinfit((1:length(Sfit_dyn)),Sfit_dyn,@g_dyn,X0,opts);
+ci = nlparci(beta,R,'jacobian',J);
+X = beta;
+
 T1=num2str(1/X(1))
 Flow=X(3)
 Kpl=X(2)
