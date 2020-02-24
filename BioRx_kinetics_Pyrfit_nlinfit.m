@@ -1,4 +1,4 @@
-function [X,Sfit_dyn,results]=BioRx_kinetics_Pyrfit_nlinfit(S_dyn,filename)
+function [X,Sfit_dyn,results,ci]=BioRx_kinetics_Pyrfit_nlinfit(S_dyn,filename)
 % Written by Renuka for 5mm Bioreactor on September 9 2013
 %
 % S_dyn is a matrix of size # metabolites(pyr)  by time
