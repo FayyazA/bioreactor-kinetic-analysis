@@ -41,7 +41,7 @@ for k = 1 : length(theFiles)
     subplot(3,1,3)
     plot(time,(my_array_2(3,:)),'k*--',time,(Sfit(3,:)),'r-'); 
         legend('lacex magn data','lac(ex) magn fit');
-    print(gcf,'-dtiff','-r300',strcat(thefiles(k),"allthree",".tif"))
+    print(gcf,'-dtiff','-r300',strcat(theFiles(k),"allthree",".tif"))
     lacex_table(k,1) = params_fit.kPL;
     lacex_table(k,2) = params_fit.kLinLex;
     lacex_table(k,3) = params_fit.R1L;
