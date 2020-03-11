@@ -48,8 +48,8 @@ for k = 1 : length(theFiles)
   drawnow; % Force display to update immediately.
 end
 %xlswrite("Pyr_summarycsmath.xlsx",pyr_table)
-xlswrite("Lacin_summary_101119_recover_old_try5.xlsx",lacin_table)
-xlswrite("Lacex_summary_101119_recover_old_try5.xlsx",lacex_table)
+xlswrite("Lacin_summary_031120_recover_old_try6.xlsx",lacin_table)
+xlswrite("Lacex_summary_031120_recover_old_try6.xlsx",lacex_table)
 xlswrite("AIC9parameters.xlsx",AIC_vec)
 %xlswrite("Atablescsmath",A_table)
 %xlswrite("Ctablescsmath",C_table)
