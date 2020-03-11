@@ -110,7 +110,7 @@ time=(1:size(Sfit_dyn,2))*TR;  %sec
 
 figure
 subplot(3,1,1)
-plot(time,(S_dyn(1,:)),'k*--',time,(Sfit_dyn(1,:)),'r-',time,(Inpfunc(1,:)),'c-'); 
+plot(time,(S_dyn(1,:)),'k*--',time,(Sfit_dyn(1,:)),'r-'); 
     legend('pyr magn data','pyr magn fit');
 subplot(3,1,2)
 plot(time,(S_dyn(2,:)),'k*--',time,(Sfit_dyn(2,:)),'r-'); 

@@ -48,9 +48,9 @@ for k = 1 : length(theFiles)
   drawnow; % Force display to update immediately.
 end
 %xlswrite("Pyr_summarycsmath.xlsx",pyr_table)
-xlswrite("Lacin_summary_FinalConfirmation_InpfuncCheck.xlsx",lacin_table)
-xlswrite("Lacex_summary_FinalConfirmationInpfuncCheck.xlsx",lacex_table)
-xlswrite("AIC9parameters_FinalConfirmationInpfuncCheck.xlsx",AIC_vec)
+xlswrite("Lacin_summary_FinalConfirmation.xlsx",lacin_table)
+xlswrite("Lacex_summary_FinalConfirmation.xlsx",lacex_table)
+xlswrite("AIC9parameters_FinalConfirmation.xlsx",AIC_vec)
 %xlswrite("Atablescsmath",A_table)
 %xlswrite("Ctablescsmath",C_table)
 end
