@@ -1,6 +1,6 @@
 function result = run_multiple_files_modeling_hp_toolbox()
 theFiles = ["HK2_1_062714_LBp5","HK2_2_062714_LBp5","HK2B_1_062714_LBp5","UMRC6_1_C1Pyr_062714_LBp5","UMRC6_2_C1Pyr_062714_LBp5","UMRC6B_1_C1Pyr_062714_LBp5","UOK262_100813_1_LBp5","UOK262_100813B_1_LBp5","UOK262_042514_6_LBp5","NewUOKDataset","13C_3_uok262_101113_with_auto","13C_1_C1Pyr_uok262_102213_with_","UOK262_100813_5DiDS1mM_LBp5","UOK262B_100813_3_DiDS1mM_LBp5","UOK262_101113_8DiDS1mM_LBp5","UOK262_042514_7DiDS_LBp5"];
-lacex_table = zeros(16,13);
+lacex_table = zeros(16,18);
 AIC_vec = zeros(16,3);
 params_fixed = struct;
 %params_fixed.R1P = 1/50;
@@ -58,11 +58,13 @@ for k = 1 : length(theFiles)
     lacex_table(k,14) = rmse(1);
     lacex_table(k,15) = rmse(2);
     lacex_table(k,16) = rmse(3);
+    lacex_table(k,17) = params_fit.R1P;
+    lacex_table(k,18) = params_fit.R1Lex;
     a = reshape(Sfit,[3,size_table(2)-1]);
     AIC = aic_3(my_array_2-a,length(a),10);
     AIC_vec(k,:) = AIC;
   drawnow; % Force display to update immediately.
 end
-xlswrite("Lacex_summary_hptoolbox.xlsx",lacex_table)
-xlswrite("AIC7parameters_hptoolbox.xlsx",AIC_vec)
+xlswrite("Lacex_summary_hptoolbox_withR1P_R1Lex.xlsx",lacex_table)
+xlswrite("AIC7parameters_hptoolbox_withR1P_R1Lex.xlsx",AIC_vec)
 end
