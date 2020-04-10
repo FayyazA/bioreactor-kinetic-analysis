@@ -1,13 +1,13 @@
 function result = run_multiple_files_modeling_hp_toolbox()
-theFiles = ["HK2_1_062714_LBp5","HK2_2_062714_LBp5","HK2B_1_062714_LBp5","UMRC6_1_C1Pyr_062714_LBp5","UMRC6_2_C1Pyr_062714_LBp5","UMRC6B_1_C1Pyr_062714_LBp5","UOK262_100813_1_LBp5","UOK262_100813B_1_LBp5","UOK262_042514_6_LBp5","NewUOKDataset","13C_3_uok262_101113_with_auto","13C_1_C1Pyr_uok262_102213_with_","UOK262_100813_5DiDS1mM_LBp5","UOK262B_100813_3_DiDS1mM_LBp5","UOK262_101113_8DiDS1mM_LBp5","UOK262_042514_7DiDS_LBp5"];
-lacex_table = zeros(16,18);
-AIC_vec = zeros(16,3);
+theFiles = ["HK2_1_062714_LBp5","HK2_2_062714_LBp5","HK2B_1_062714_LBp5","UMRC6_1_C1Pyr_062714_LBp5","UMRC6_2_C1Pyr_062714_LBp5","UMRC6B_1_C1Pyr_062714_LBp5","UOK262_100813_1_LBp5","UOK262_100813B_1_LBp5","UOK262_042514_6_LBp5","NewUOKDataset","13C_3_uok262_101113_with_auto","13C_1_C1Pyr_uok262_102213_with_","UOK262_100813_5DiDS1mM_LBp5","UOK262B_100813_3_DiDS1mM_LBp5","UOK262_101113_8DiDS1mM_LBp5","UOK262_042514_7DiDS_LBp5", "C1Pyr_2_012114", "UOK262_092713_1_LBp5", "UOK262_082813_p5ml_min_manu", "UOK262_siRNAcntrl_103113_1_", "UOK262_103113_5_siRNAMCT4#7", "C1Pyr_1_013114_siRNA_MCT4#7"];
+lacex_table = zeros(22,18);
+AIC_vec = zeros(22,3);
 params_fixed = struct;
 %params_fixed.R1P = 1/50;
 %params_fixed.R1Lex = 1/36.7;
 params_est = struct;
 for k = 1 : length(theFiles)
-    data_set = importfilenew("C:\Users\Owner\Downloads\UOK262_UMRC6_HK2_BioRx_2peaks_control_data 02152019 with lactate added",theFiles(k),1);
+    data_set = importfilenew("C:\Users\Owner\Downloads\UOK262_UMRC6_HK2_BioRx_2peaks_control_data 04082020 with lactate added",theFiles(k),1);
     input_vector = data_set.Pyr_area';
     my_table = array2table(data_set{:,[4,8]});
     int = smooth(table2array(my_table(:,2)));
@@ -65,6 +65,6 @@ for k = 1 : length(theFiles)
     AIC_vec(k,:) = AIC;
   drawnow; % Force display to update immediately.
 end
-xlswrite("Lacex_summary_hptoolbox_withR1P_R1Lex.xlsx",lacex_table)
-xlswrite("AIC7parameters_hptoolbox_withR1P_R1Lex.xlsx",AIC_vec)
+xlswrite("Lacex_summary_hptoolbox_moredata.xlsx",lacex_table)
+xlswrite("AIC7parameters_hptoolbox_moredata.xlsx",AIC_vec)
 end
