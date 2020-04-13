@@ -89,9 +89,9 @@ Flow_lac=X(8)
 K_MCT4=X(6)
 K_MCT1=X(9)
 Inp_func=[A(4) A(5) A(6)]
-E=[1/C(1), X(2), X(3),... % 1/T1Pyr, Kpl, Flow_pyr
-    1/X(4), X(5), X(6),... %1/T1Lin, Klp, K(MCT4)
-    1/X(7), X(8), X(9),... % 1/T1Lout,Flow_lacout, K(MCT1)
+E=[C(1), X(2), X(3),... % 1/T1Pyr, Kpl, Flow_pyr
+    X(4), X(5), X(6),... %1/T1Lin, Klp, K(MCT4)
+    X(7), X(8), X(9),... % 1/T1Lout,Flow_lacout, K(MCT1)
     A(4), A(5), A(6)]; %Input Function
 
 for i=1:3
