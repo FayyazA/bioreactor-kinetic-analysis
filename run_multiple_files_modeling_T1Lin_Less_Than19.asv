@@ -19,7 +19,7 @@ lb = [min(previous_fitted_values(:,1)),min(previous_fitted_values(:,2)),min(prev
 ub = [max(previous_fitted_values(:,1)),max(previous_fitted_values(:,2)),max(previous_fitted_values(:,3)),max(previous_fitted_values(:,4)),max(previous_fitted_values(:,5)),max(previous_fitted_values(:,6))];
 AIC_vec = zeros(16,3);
 for k = 1 : length(theFiles)
-    data_set = importfilenew("C:\Users\Owner\Downloads\UOK262_UMRC6_HK2_BioRx_2peaks_control_data 04082020 with lactate added",theFiles(k),starting_entries(k))
+    data_set = importfilenew("C:\Users\Owner\Downloads\UOK262_UMRC6_HK2_BioRx_2peaks_control_data 02152019 with lactate added",theFiles(k),starting_entries(k))
     input_vector = data_set.Pyr_area';
     [X,S_fit_dyn] = BioRx_kinetics_Pyrfit_starting_out_recover_old(input_vector,strcat(theFiles(k),"PyrFinalConfirmation"));
     %pyr_table(k,:) = results1;
@@ -50,7 +50,7 @@ end
 %xlswrite("Pyr_summarycsmath.xlsx",pyr_table)
 xlswrite("Lacin_summary_FinalConfirmation_moredata.xlsx",lacin_table)
 xlswrite("Lacex_summary_FinalConfirmation_moredata.xlsx",lacex_table)
-xlswrite("AIC9parameters_FinalConfirmation_moredata.xlsx",AIC_vec)
+xlswrite("AIC9parameters_FinalConfirmation.xlsx",AIC_vec)
 %xlswrite("Atablescsmath",A_table)
 %xlswrite("Ctablescsmath",C_table)
 end
