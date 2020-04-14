@@ -1,6 +1,6 @@
 function result = run_multiple_files_modeling_loops()
 theFiles = ["C1Pyr_2_012114", "UOK262_092713_1_LBp5", "UOK262_082813_p5ml_min_manu", "UOK262_siRNAcntrl_103113_1_", "UOK262_103113_5_siRNAMCT4#7", "C1Pyr_1_013114_siRNA_MCT4#7"];
-starting_entries = [7,7,7,7,7,7];%[13,5,11,9,6,11,17,16,12,16];
+starting_entries = [14,8,14,11,10,8];%[13,5,11,9,6,11,17,16,12,16];
 result_table = zeros(132,18)
 for k = 1 :length(theFiles)
     numbers = [max(starting_entries(k)-5,2),max(starting_entries(k)-4,2),max(starting_entries(k)-3,2),max(starting_entries(k)-2,2),max(starting_entries(k)-1,2),starting_entries(k)-0,starting_entries(k)+1,starting_entries(k)+2,starting_entries(k)+3,starting_entries(k)+4,starting_entries(k)+5];
@@ -8,7 +8,7 @@ for k = 1 :length(theFiles)
     data_set = importfilenew("C:\Users\Owner\Downloads\UOK262_UMRC6_HK2_BioRx_2peaks_control_data 04082020 with lactate added",theFiles(k),numbers(p));
         
         input_vector = data_set.Pyr_area';
-        [X,S_fit_dyn] = BioRx_kinetics_Pyrfit_starting_out(input_vector,strcat(theFiles(k),"PyrFINAL",num2str(numbers(p))));
+        [X,S_fit_dyn] = BioRx_kinetics_Pyrfit_starting_out_recover_old(input_vector,strcat(theFiles(k),"PyrFINAL",num2str(numbers(p))));
         my_table = array2table(data_set{:,[4,8]});
         int = smooth(table2array(my_table(:,2)));
         my_table(:,2) = array2table(int);
