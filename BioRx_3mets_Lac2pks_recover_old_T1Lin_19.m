@@ -36,7 +36,7 @@ Nt = length(S_dyn);
 
 X0 = [C(1), C(2), C(3),... % 1/T1Pyr, Kpl, Flow_pyr
     C(4), C(5), 0.03,... %1/T1Lin, Klp, K(MCT4)
-    1/36.7, 0.1, 0]; % 1/T1Lout,Flow_lacout, K(MCT1)
+    1/36.7, C(3)*4, 0]; % 1/T1Lout,Flow_lacout, K(MCT1)
     
 function Mest_dyn = model_exchange_dyn(x)
 % Inital conditions
