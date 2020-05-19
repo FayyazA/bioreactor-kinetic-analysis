@@ -66,6 +66,6 @@ for k = 1 : length(theFiles)
   drawnow; % Force display to update immediately.
 end
 save('actual_numbers.mat', 'lacex_table', 'AIC_vec');
-xlswrite("Lacex_summary_hptoolbox_moredata_newIF.xlsx",lacex_table)
+xlswrite("Lacex_summary_hptoolbox_moredata.xlsx",lacex_table)
 xlswrite("AIC9parameters_hptoolbox_moredata.xlsx",AIC_vec)
 end
