@@ -67,5 +67,5 @@ for k = 1 : length(theFiles)
 end
 save('actual_numbers.mat', 'lacex_table', 'AIC_vec');
 xlswrite("Lacex_summary_hptoolbox_moredata.xlsx",lacex_table)
-xlswrite("AIC7parameters_hptoolbox_moredata.xlsx",AIC_vec)
+xlswrite("AICreal7parameters_hptoolbox_moredata.xlsx",AIC_vec)
 end
