@@ -120,5 +120,10 @@ plot(time,(S_dyn(3,:)),'k*--',time,(Sfit_dyn(3,:)),'r-');
     legend('lac_ex magn data','lac(ex) magn fit');
 print(gcf,'-dtiff','-r300',strcat(filename,"FINAL",".tif"))
 
+
+figure
+plot(time, S_dyn(1,:)./10^2, 'b*--', time, Sfit_dyn(1,:)./10^2, 'b-', time, Inpfunc(1,:)./10^2, 'k-', time, S_dyn(2,:), 'g*--', time, Sfit_dyn(2,:), 'g-', time, S_dyn(3,:), 'r*--', time, Sfit_dyn(3,:), 'r-');
+legend('Pyruvate Data/10^2','Pyruvate Fit/10^2', 'Input Function / 10^2', 'Intracellular Lactate Data', 'Intracellular Lactate Fit', 'Extracellular Lactate Data', 'Extracellular Lactate Fit');
+print(gcf,'-dtiff','-r300',strcat(filename,"FINAL_all_three_image",".tif"))
 end
     
