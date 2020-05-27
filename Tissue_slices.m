@@ -91,7 +91,7 @@ Rsqrd_lac_in_magn=R(2)
 rmse_pyr = rmse(1)
 rmse_lac_in = rmse(2)
 
-result_vector = [X(1),X(2),X(3),X(4),X(5),X(6),R(1),R(2),rmse(1),rmse(2)];
+result_vector = [X(1),X(2),X(3),X(4),X(5),X(6),R(1),R(2),rmse(1),rmse(2),A(4),A(5),A(6)];
 figure
 subplot(2,1,1)
 plot(time,(S_dyn(1,:)),'k*--',time,(Sfit_dyn(1,:)),'r-'); 
