@@ -3,7 +3,7 @@ theFiles = ["HK2_1_062714_LBp5","HK2_2_062714_LBp5","HK2B_1_062714_LBp5","UMRC6_
 starting_entries = [13,6,11,9,8,8,18,17,12,15,11,2,12,9,4,19,10,8,13,14,10,8]%[14,4,11,9,8,8,17,20,7,15,7,2,12,9,4,19];%[13,6,11,9,8,8,18,17,12,15,11,2];%did final starting point analysis with these values[13,5,11,9,6,11,17,16,12,16];%[13,5,3,9,2,8,13,11,19]; %[13,11,11,10,6,8,15,13,12]; %[13,11,11,12,6,11,15,13,12]
 %pyr_table = zeros(10,7);
 lacin_table = zeros(22,6);
-lacex_table = zeros(22,18);
+lacex_table = zeros(22,17);
 %A_table = zeros(10,6);
 %C_table = zeros(10,4);
 previous_fitted_values = [1/46.334,0.0034343,0.12039,2.3562,21.803,2.55e+08;...
@@ -42,7 +42,7 @@ for k = 1 : length(theFiles)
     size_table_2 = size(my_table_2)
     my_array_2 = table2array(my_table_2(:,2:size_table(2)));
     [E,Sfitdyn3] = BioRx_3mets_Lac2pks_recover_old_T1Lin_19(my_array_2,X,C,strcat(theFiles(k),"LacexFinalConfirmation7")); %[fit3,results3] = BioRx_kinetics_Lac2pks_NoT1s(my_array_2,round1_output,round2_output,strcat(theFiles(k),"Lacexcs"));
-    AIC = aic_3(my_array_2-Sfitdyn3,length(S_fit_dyn),9);
+    AIC = aic_3(my_array_2-Sfitdyn3,length(S_fit_dyn),7);
     AIC_vec(k,:) = AIC;
     lacex_table(k,:) = E;
   drawnow; % Force display to update immediately.
