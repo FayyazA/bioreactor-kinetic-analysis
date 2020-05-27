@@ -41,9 +41,9 @@ X0 = [C(1), C(2), C(3),... % 1/T1Pyr, Kpl, Flow_pyr
 function Mest_dyn = model_exchange_dyn(x)
 % Inital conditions
     Mest_dyn(:,1) = S_dyn(:,1);
-    K  = [-C(1)-x(2)-x(3),x(5),0;... %Pyr=P(-R1P-kpl-Flow)+Lac_in(Klp) Replace flow by 0.5 and put KMCT1 in entry(1,1)
-          x(2),-x(4)-x(5)-x(6),x(9);...   %Lac_in=P(kpl)+Lac_in(-R1PL-klp-K(MCT4))+Lac_out(K(MCT1))
-          0,x(6), -x(7)-x(8)-x(9)] ;   %Lac_ex=Lac_in(K(MCT4))+Lac_out(-R1Lac_out-Flow-K(MCT1))   
+    K  = [-C(1)-x(2)-x(3),0,0;... %Pyr=P(-R1P-kpl-Flow)+Lac_in(Klp) Replace flow by 0.5 and put KMCT1 in entry(1,1)
+          x(2),-x(4)-0-x(6),0;...   %Lac_in=P(kpl)+Lac_in(-R1PL-klp-K(MCT4))+Lac_out(K(MCT1))
+          0,x(6), -x(7)-x(8)-0] ;   %Lac_ex=Lac_in(K(MCT4))+Lac_out(-R1Lac_out-Flow-K(MCT1))   
    
       Inpfunc(:,1) = [0;0;0];
 
