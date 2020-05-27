@@ -100,5 +100,9 @@ subplot(2,1,2)
 plot(time,(S_dyn(2,:)),'k*--',time,(Sfit_dyn(2,:)),'r-'); 
     legend('lac_in magn data','lac_in magn fit');
 print(gcf,'-dtiff','-r300',strcat(filename,"FINAL",".tif"))
+figure
+plot(time, S_dyn(1,:)./10^2, 'b*--', time, Sfit_dyn(1,:)./10^2, 'b-', time, Inpfunc(1,:)./10^2, 'k-', time, S_dyn(2,:), 'g*--', time, Sfit_dyn(2,:), 'g-');
+legend('Pyruvate Data/10^2','Pyruvate Fit/10^2', 'Input Function / 10^2', 'Lactate Data', 'Lactate Fit');
+print(gcf,'-dtiff','-r300',strcat(filename,"FINAL_MANUSCRIPT",".tif"))
 end
     
