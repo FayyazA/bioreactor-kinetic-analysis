@@ -21,7 +21,7 @@ close all
 %addpath /home/plarson/matlab/reconstruction
 
 %% data input - reformat depending on data type
-filename = 'JW310.mat';
+filename = 'JW355.mat';
 data=load(filename);
 
 % the size and shape of each of these is dependent on the input data
@@ -93,9 +93,11 @@ Rsquared= 1-sum((reshape(S(2,:),[1 Nt])-Sfit(1,:)).^2)./sum((reshape(S(2,:),[1 N
 % this section is almost identical to the above, but i've manually
 % truncated the input data. you can play with this if you want to start 
 % fitting at or after the bolus.
-
-S=S(:,4:end); %used to be 4
-flips=flips(:,4:end); % used to be 4
+Sorig = S;
+flipsorig = flips;
+for k = 1:6
+S=Sorig(:,k:end); %used to be 4
+flips=flipsorig(:,k:end); % used to be 4
 Nt=size(flips,2);
 
 R1P_est = 1/30; R1L_est = 1/25;
@@ -115,7 +117,7 @@ sigma
 error=(sigma(2)-sigma(1))/2
 Rsquared= 1-sum((reshape(S(2,:),[1 Nt])-Sfit(1,:)).^2)./sum((reshape(S(2,:),[1 Nt])).^2);
 fprintf('kPL is: %.3f +- %.3f\nR^2 on the lactate fit is: %.3f\n',params_fit.kPL, error,Rsquared)
-
+figure
 % figure formatting
 %subplot(122)
 plot(S(1,:), 'b*--')
@@ -131,4 +133,5 @@ xhalf=Nt/2;
 yhalf=max(S(2,:))*0.5;  
 text(xhalf,yhalf+yhalf*0.1,['k_{PL} = ' num2str(params_fit.kPL,'%.3f') '+-' num2str(0.5*(sigma(1,2)-sigma(1,1)),'%.3f')],'fontsize',8);
 text(xhalf,yhalf,['R^{2} = ' num2str(Rsquared,'%.3f')],'fontsize',8);
-print(gcf,'-dtiff','-r300',strcat(filename,"FINAL",".tif"))
+print(gcf,'-dtiff','-r300',strcat(filename,num2str(k),"FINAL",".tif"))
+end
