@@ -20,29 +20,27 @@ ub = [max(previous_fitted_values(:,1)),max(previous_fitted_values(:,2)),max(prev
 my_vec = 0;
 table_data = zeros(21,18);
 for k = 1 : length(my_vec)
-    %data_set = importfilenew("C:\Users\Owner\Downloads\UOK262_UMRC6_HK2_BioRx_2peaks_control_data 02152019 with lactate added",theFiles(k),starting_entries(k))
-    %input_vector = data_set.Pyr_area';
-    [X,S_fit_dyn] = BioRx_kinetics_Pyrfit_starting_out_starting_point_increments(data_vec(1,:),strcat("test","Pyrsynthetic"));
+    [X,S_fit_dyn] = BioRx_kinetics_Pyrfit_starting_out_recover_old(input_vector,strcat(theFiles(k),"PyrFinalConfirmation"));
     %pyr_table(k,:) = results1;
     %A_table(k,:) = round1_output;
-    %my_table = array2table(data_set{:,[4,8]});
-    %int = smooth(table2array(my_table(:,2)));
-    %my_table(:,2) = array2table(int);
-    %my_table = rows2vars(my_table);
-    %size_table = size(my_table);
-    %my_array = table2array(my_table(:,2:size_table(2)));
-    [C,S_fitdyn2] = BioRx_Pyr_Lacin_starting_point_increments(data_vec(1:2,:),X,strcat("test","Lacinsynthetic")); %[round2_output,fit2,results2] = BioRx_kinetics_Lacin_NoT1Lin(my_array,round1_output,strcat(theFiles(k),"Lacincs"));
-    %lacin_table(k,:) = C;
+    my_table = array2table(data_set{:,[4,8]});
+    int = smooth(table2array(my_table(:,2)));
+    my_table(:,2) = array2table(int);
+    my_table = rows2vars(my_table);
+    size_table = size(my_table);
+    my_array = table2array(my_table(:,2:size_table(2)));
+    [C,S_fitdyn2] = BioRx_Pyr_Lacin_recover_old_T1Lin_19(my_array,X,strcat(theFiles(k),"LacinFinalConfirmation")); %[round2_output,fit2,results2] = BioRx_kinetics_Lacin_NoT1Lin(my_array,round1_output,strcat(theFiles(k),"Lacincs"));
+    lacin_table(k,:) = C;
     %C_table(k,:) = round2_output;
-    %my_table_2 = array2table(data_set{:,[4,8,10]});
-    %int2 = smooth(table2array(my_table_2(:,2)));
-    %my_table_2(:,2) = array2table(int2);
-    %int3 = smooth(table2array(my_table_2(:,3)));
-    %my_table_2(:,3) = array2table(int3);
-    %my_table_2 = rows2vars(my_table_2);
-    %size_table_2 = size(my_table_2)
-    %my_array_2 = table2array(my_table_2(:,2:size_table(2)));
-    [E,Sfitdyn3] = BioRx_3mets_Lac2pks_starting_point_increments(data_vec,X,C,strcat("test","Lacexsynthetic"),my_vec(k)); %[fit3,results3] = BioRx_kinetics_Lac2pks_NoT1s(my_array_2,round1_output,round2_output,strcat(theFiles(k),"Lacexcs"));
+    my_table_2 = array2table(data_set{:,[4,8,10]});
+    int2 = smooth(table2array(my_table_2(:,2)));
+    my_table_2(:,2) = array2table(int2);
+    int3 = smooth(table2array(my_table_2(:,3)));
+    my_table_2(:,3) = array2table(int3);
+    my_table_2 = rows2vars(my_table_2);
+    size_table_2 = size(my_table_2)
+    my_array_2 = table2array(my_table_2(:,2:size_table(2)));
+    [E,Sfitdyn3] = BioRx_3mets_Lac2pks_recover_old_T1Lin_19(my_array_2,X,C,strcat(theFiles(k),"LacexFinalConfirmation")); %[fit3,results3] = BioRx_kinetics_Lac2pks_NoT1s(my_array_2,round1_output,round2_output,strcat(theFiles(k),"Lacexcs"));
     table_data(k,:) = E;
   drawnow; % Force display to update immediately.
 end

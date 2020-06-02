@@ -1,0 +1,14 @@
+clear all;
+close all;
+R1P = 0.020781;
+kPL = 0.003479516;
+FP = 0.12115537;
+R1Lin = 0.035353019;
+kLP = 2.22045E-14;
+kMCT4 = 0.221997574;
+R1Lex = 0.026802025;
+FL = 0.119317026;
+kMCT1 = 0.141129846;
+K = [-R1P-kPL-FP,kLP,0;kPL,-R1Lin-kLP-kMCT4,kMCT1;0,kMCT4,-R1Lex-kMCT1-FL];
+hk_1 = generate_synthetic(K);
+hk_1_fits = run_multiple_files_modeling_synthetic_data(hk_1);

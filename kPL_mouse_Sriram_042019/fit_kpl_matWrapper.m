@@ -21,7 +21,7 @@ close all
 %addpath /home/plarson/matlab/reconstruction
 
 %% data input - reformat depending on data type
-filename = 'JW355.mat';
+filename = 'JW352.mat';
 data=load(filename);
 
 % the size and shape of each of these is dependent on the input data
@@ -120,14 +120,12 @@ fprintf('kPL is: %.3f +- %.3f\nR^2 on the lactate fit is: %.3f\n',params_fit.kPL
 figure
 % figure formatting
 %subplot(122)
-plot(S(1,:), 'b*--')
-hold on
 plot(S(2,:), 'r*--')
 title('Lactate Fit Over Time - after Bolus')
 hold on
 plot(Sfit,'k-')
 xlabel('Timepoints')
-legend('Pyruvate','Lactate','Lactate Fit')
+legend('Lactate','Lactate Fit')
 
 xhalf=Nt/2;
 yhalf=max(S(2,:))*0.5;  
