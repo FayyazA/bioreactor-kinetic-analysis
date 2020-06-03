@@ -28,7 +28,7 @@ Nt = length(S_dyn);
 %From empty beads - T1_Pyr = 48.61+-.4, T1_Lacex=36.7+-.05
 
 X0 = [A(1),A(2),A(3),...    %1/T1Pyr, Kpl, Flow
-    1/25, 0.45, 0.04]; %1/T1Lin=25, Klp=0, K(MCT4)=0.04
+    1/25, 0, .04]; %1/T1Lin, Klp, K(MCT4)
     
 function Mest_dyn = model_exchange_dyn(x)
 % Inital conditions
@@ -60,10 +60,10 @@ end
 %opts = optimset('MaxIter',800,'MaxFunEvals', 1e30,'TolX',1e-12,'TolFun', min(abs(S_dyn(:,end)))/1e12,'FinDiffType','central');
 opts = optimset('MaxIter',1000,'MaxFunEvals', 1e30,'TolX',1e-6,'TolFun', min(abs(S_dyn(:,end)))/1e12,'FinDiffType','central');
 
-lb = [1/51,0.0001, 10^-8,... %A(1)-.0001
+lb = [1/51,0.0001, 1E-8,... %A(1)-.0001
       1/30, 0,.01];
  ub = [1/47, 0.08,10.0,... %A(1)+.0001
-     1/22, 0.5,10.0];
+     1/10, 0.5,10];
 
 
 [X,resnorm,residual,exitflag,output,lambda,jacobian]  = lsqnonlin(@g_dyn, X0, lb, ub, opts);

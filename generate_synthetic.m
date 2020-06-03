@@ -1,7 +1,7 @@
-function data_vec = generate_synthetic(K)
+function data_vec = generate_synthetic(K,A)
 Inpfunc=zeros(3,100);
 Mest_dyn = zeros(3,100);
-A = [0,0,0,2.854500877,21.32582161,491427684.1];
+%A = [0,0,0,2.854500877,21.32582161,491427684.1];
 TR=3;
 for k = 2:100
        %gamma pdf approximation of input function , func = @(a,x)( a(3)*x.^(a(1)-1) .* exp(-x/a(2)) / (a(2)^a(1) * gamma(a(1))));

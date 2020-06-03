@@ -51,9 +51,10 @@ end
 
 % This should be optimized MaxIter final version = 5000, use 2000 for
 % starting point analysis
-opts = optimset('MaxIter',2000,'MaxFunEvals', 1e32,'TolX',1e-9,'TolFun', min(abs(S_dyn(:,end)))/1e15,'FinDiffType','central','Display','iter');
+nanmin(abs(S_dyn(:,end)))/1e15
+opts = optimset('MaxIter',2000,'MaxFunEvals', 1e32,'TolX',1e-9,'TolFun', nanmin(abs(S_dyn(:,end)))/1e15,'FinDiffType','central','Display','iter');
 
-lb = [1/51, .0001, 10^-8,...
+lb = [1/51, .0001, 1E-8,...
       X0(4)-2, 8, 1e3];
  ub = [1/47,.1,10.0,...
       X0(4)+2, 22, 1e10];

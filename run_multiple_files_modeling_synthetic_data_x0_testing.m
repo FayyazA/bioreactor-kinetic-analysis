@@ -1,4 +1,4 @@
-function table_data = run_multiple_files_modeling_synthetic_data(data_vec,filename)
+function table_data = run_multiple_files_modeling_synthetic_data_x0_testing(data_vec,filename)
 %theFiles = ["HK2_1_062714_LBp5","HK2_2_062714_LBp5","HK2B_1_062714_LBp5","UMRC6_1_C1Pyr_062714_LBp5","UMRC6_2_C1Pyr_062714_LBp5","UMRC6B_1_C1Pyr_062714_LBp5","UOK262_100813_1_LBp5","UOK262_100813B_1_LBp5","UOK262_042514_6_LBp5","NewUOKDataset","13C_3_uok262_101113","13C_1_C1Pyr_uok262_102213"]
 %starting_entries = [14,4,11,9,8,8,17,20,7,15,7,2];%[13,6,11,9,8,8,18,17,12,15,11,2];%did final starting point analysis with these values[13,5,11,9,6,11,17,16,12,16];%[13,5,3,9,2,8,13,11,19]; %[13,11,11,10,6,8,15,13,12]; %[13,11,11,12,6,11,15,13,12]
 %pyr_table = zeros(10,7);
@@ -21,7 +21,7 @@ my_vec = 0;
 table_data = zeros(1,18);
 for k = 1 : length(my_vec)
     input_vector = data_vec(1,:);
-    [X,S_fit_dyn] = BioRx_kinetics_Pyrfit_starting_out_recover_old(input_vector,strcat(filename,"PyrFinalConfirmation"));
+    [X,S_fit_dyn] = BioRx_kinetics_Pyrfit_starting_out_starting_point_increments(input_vector,strcat(filename,"PyrFinalConfirmation"));
     %pyr_table(k,:) = results1;
     %A_table(k,:) = round1_output;
     my_array = data_vec(1:2,:);

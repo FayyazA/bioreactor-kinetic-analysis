@@ -36,7 +36,7 @@ Nt = length(S_dyn);
 
 X0 = [C(1), C(2), C(3),... % 1/T1Pyr, Kpl, Flow_pyr
     C(4), C(5), 0.03,... %1/T1Lin, Klp, K(MCT4)
-    1/36.7, C(3)*4, xknot]; % 1/T1Lout=36.7,Flow_lacout=C(3)*4, K(MCT1)=0
+    1/36.7, C(3)*4, 0]; % 1/T1Lout,Flow_lacout, K(MCT1)
     
 function Mest_dyn = model_exchange_dyn(x)
 % Inital conditions
@@ -67,12 +67,12 @@ end
 % This should be optimized
 opts = optimset('MaxIter',1000,'MaxFunEvals', 1e30,'TolX',1e-6,'TolFun', min(abs(S_dyn(:,end)))/1e12,'FinDiffType','central');
 
-lb = [1/51, .0001, 10^-8,... % 1/T1Pyr, Kpl, Flow_pyr Flow_pyr used to be C(3)*0.9 1/T1P was C(1)-.001
-      C(4)-.001, 0, 0.001,... %1/T1Lin, Klp, K(MCT4)
-      1/37.7, 10^-8, 0]; % 1/T1Lout,Flow_lacout, K(MCT1)
+lb = [1/51, .0001, 1E-8,... % 1/T1Pyr, Kpl, Flow_pyr Flow_pyr used to be C(3)*0.9 1/T1P was C(1)-.001
+      C(4)-0.001, 0, 0.001,... %1/T1Lin, Klp, K(MCT4)
+      1/37.7, 1E-8, 0]; % 1/T1Lout,Flow_lacout, K(MCT1)
  ub = [1/47, 0.08, 10.0,... % 1/T1Pyr, Kpl, Flow_pyr Flow_pyr used to be C(3)*1.1 1/T1P was C(1)-.001
-      C(4)+.001, 0.1, 10.0,... %1/T1Lin, Klp, K(MCT4)
-      1/35.7, 10, .9 ]; % 1/T1Lout,Flow_lacout, K(MCT1)
+      C(4)+0.001, 0.1, 10,... %1/T1Lin, Klp, K(MCT4)
+      1/35.7, 10.0, 0.9 ]; % 1/T1Lout,Flow_lacout, K(MCT1)
     
 [X,resnorm,residual,exitflag,output,lambda,jacobian]  = lsqnonlin(@g_dyn, X0, lb, ub, opts);
 Sfit_dyn = model_exchange_dyn(X);
@@ -89,9 +89,9 @@ Flow_lac=X(8)
 K_MCT4=X(6)
 K_MCT1=X(9)
 Inp_func=[A(4) A(5) A(6)]
-E=[1/C(1), X(2), X(3),... % 1/T1Pyr, Kpl, Flow_pyr
-    1/X(4), X(5), X(6),... %1/T1Lin, Klp, K(MCT4)
-    1/X(7), X(8), X(9),... % 1/T1Lout,Flow_lacout, K(MCT1)
+E=[C(1), X(2), X(3),... % 1/T1Pyr, Kpl, Flow_pyr
+    X(4), X(5), X(6),... %1/T1Lin, Klp, K(MCT4)
+    X(7), X(8), X(9),... % 1/T1Lout,Flow_lacout, K(MCT1)
     A(4), A(5), A(6)]; %Input Function
 
 for i=1:3
@@ -110,7 +110,7 @@ time=(1:size(Sfit_dyn,2))*TR;  %sec
 
 figure
 subplot(3,1,1)
-plot(time,(S_dyn(1,:)),'k*--',time,(Sfit_dyn(1,:)),'r-'); 
+plot(time,(S_dyn(1,:)),'k*--',time,(Sfit_dyn(1,:)),'r-',time,(Inpfunc(1,:)),'c-'); 
     legend('pyr magn data','pyr magn fit');
 subplot(3,1,2)
 plot(time,(S_dyn(2,:)),'k*--',time,(Sfit_dyn(2,:)),'r-'); 
@@ -120,5 +120,10 @@ plot(time,(S_dyn(3,:)),'k*--',time,(Sfit_dyn(3,:)),'r-');
     legend('lac_ex magn data','lac(ex) magn fit');
 print(gcf,'-dtiff','-r300',strcat(filename,"FINAL",".tif"))
 
+
+figure
+plot(time, S_dyn(1,:)./10^2, 'b*--', time, Sfit_dyn(1,:)./10^2, 'b-', time, Inpfunc(1,:)./10^2, 'k-', time, S_dyn(2,:), 'g*--', time, Sfit_dyn(2,:), 'g-', time, S_dyn(3,:), 'r*--', time, Sfit_dyn(3,:), 'r-');
+legend('Pyruvate Data/10^2','Pyruvate Fit/10^2', 'Input Function / 10^2', 'Intracellular Lactate Data', 'Intracellular Lactate Fit', 'Extracellular Lactate Data', 'Extracellular Lactate Fit');
+print(gcf,'-dtiff','-r300',strcat(filename,"FINAL_all_three_image",".tif"))
 end
     
