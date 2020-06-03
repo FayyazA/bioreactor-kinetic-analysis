@@ -18,7 +18,7 @@ for i = 1:5
 K = [-R1P-kPL-FP,kLP,0;kPL,-R1Lin-kLP-kMCT4,kMCT1;0,kMCT4,-R1Lex-kMCT1-FL];
 A = [0,0,0,k,theta,gamma];
 hk_1 = generate_synthetic(K,A);
-hk_1_fits = run_multiple_files_modeling_synthetic_data(hk_1, "hk_1");
+hk_1_fits = run_multiple_files_modeling_synthetic_data_x0_testing(hk_1,"x0_test");
 hk_1_actual = [R1P,kPL,FP,R1Lin,kLP,kMCT4,R1Lex,FL,kMCT1,A(4),A(5),A(6),0,0,0,0,0,0];
 diff_in_fit(i,:) = hk_1_fits-hk_1_actual;
 end

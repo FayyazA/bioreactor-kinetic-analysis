@@ -17,24 +17,26 @@ previous_fitted_values = [1/46.334,0.0034343,0.12039,2.3562,21.803,2.55e+08;...
                             1/49.249,0.0043175,0.090111,4,16.60482192,6.68e+08];
 lb = [min(previous_fitted_values(:,1)),min(previous_fitted_values(:,2)),min(previous_fitted_values(:,3)),min(previous_fitted_values(:,4)),min(previous_fitted_values(:,5)),min(previous_fitted_values(:,6))];
 ub = [max(previous_fitted_values(:,1)),max(previous_fitted_values(:,2)),max(previous_fitted_values(:,3)),max(previous_fitted_values(:,4)),max(previous_fitted_values(:,5)),max(previous_fitted_values(:,6))];
-my_vec = 0;
+my_vec = ["R1P","kPL","FP","R1Lin","kLP","kMCT4","R1Lex","FL","kMCT1"];
 table_data = zeros(1,18);
 for k = 1 : length(my_vec)
+    for p = 1:10
     input_vector = data_vec(1,:);
-    [X,S_fit_dyn] = BioRx_kinetics_Pyrfit_starting_out_starting_point_increments(input_vector,strcat(filename,"PyrFinalConfirmation"));
+    [X,S_fit_dyn] = BioRx_kinetics_Pyrfit_starting_out_starting_point_increments(input_vector,strcat(filename,"PyrFinalConfirmation"),thing(p,k),my_vec(k));
     %pyr_table(k,:) = results1;
     %A_table(k,:) = round1_output;
     my_array = data_vec(1:2,:);
     my_array(2,:) = smooth(data_vec(2,:));
-    [C,S_fitdyn2] = BioRx_Pyr_Lacin_recover_old_T1Lin_19(my_array,X,strcat(filename,"LacinFinalConfirmation")); %[round2_output,fit2,results2] = BioRx_kinetics_Lacin_NoT1Lin(my_array,round1_output,strcat(theFiles(k),"Lacincs"));
+    [C,S_fitdyn2] = BioRx_Pyr_Lacin_starting_point_increments(my_array,X,strcat(filename,"LacinFinalConfirmation"),thing(p,k),my_vec(k)); %[round2_output,fit2,results2] = BioRx_kinetics_Lacin_NoT1Lin(my_array,round1_output,strcat(theFiles(k),"Lacincs"));
     lacin_table(k,:) = C;
     %C_table(k,:) = round2_output;
     my_array_2 = data_vec;
     my_array_2(2,:) = smooth(data_vec(2,:));
     my_array_2(3,:) = smooth(data_vec(3,:));
-    [E,Sfitdyn3] = BioRx_3mets_Lac2pks_recover_old_T1Lin_19(my_array_2,X,C,strcat(filename,"LacexFinalConfirmation")); %[fit3,results3] = BioRx_kinetics_Lac2pks_NoT1s(my_array_2,round1_output,round2_output,strcat(theFiles(k),"Lacexcs"));
+    [E,Sfitdyn3] = BioRx_3mets_Lac2pks_starting_point_increments(my_array_2,X,C,strcat(filename,"LacexFinalConfirmation"),thing(p,k),my_vec(k)); %[fit3,results3] = BioRx_kinetics_Lac2pks_NoT1s(my_array_2,round1_output,round2_output,strcat(theFiles(k),"Lacexcs"));
     table_data(k,:) = E;
-  drawnow; % Force display to update immediately.
+    drawnow; % Force display to update immediately.
+    end
 end
 %xlswrite("Pyr_summarycsmath.xlsx",pyr_table)
 %xlswrite("Lacin_summary_FINALsmooth_beforestartingconditions.xlsx",lacin_table)

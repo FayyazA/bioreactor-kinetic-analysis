@@ -1,4 +1,4 @@
-function [X,Sfit_dyn,results]=BioRx_kinetics_Pyrfit_starting_out_starting_point_increments(S_dyn,filename,xknot,kinetic_paramter)
+function [X,Sfit_dyn,results]=BioRx_kinetics_Pyrfit_starting_out_starting_point_increments(S_dyn,filename,xknot,kinetic_)
 % Written by Renuka for 5mm Bioreactor on September 9 2013
 %
 % S_dyn is a matrix of size # metabolites(pyr)  by time
@@ -25,20 +25,9 @@ Nt = length(S_dyn);
 % InputFunction- X(4)=2.4 - 3.7 (for Pyr), x(5)=17.3-21.4
 %From UOK262 baseline dataset, X(4)=3.89+-0.4 , x(5)=15.7 +-1.6
 %From empty beads - T1_Pyr = 48.61+-.4, T1_Lacex=36.7+-.05
-if kinetic_paramter == "R1P"
-    X0 = [xknot,0.01,0.15,...
-        (2/skewness(S_dyn(1,:)))^2,19,5e8];
-elseif kinetic_paramter == "kPL"
-    X0 = [1/48,xknot,0.15,...
-        (2/skewness(S_dyn(1,:)))^2,19,5e8];
-elseif kinetic_paramter == 'FP'
-    X0 = [1/48,0.01,xknot,...
-        (2/skewness(S_dyn(1,:)))^2,19,5e8];
-else
-
 X0 = [1/48,0.01,0.15,...    %1/T1P, Kpl,FlowPyr
     (2/skewness(S_dyn(1,:)))^2,19,5e8];  % alpha beta and constant values of gmma fit of input function
-end
+
 function Mest_dyn = model_exchange_dyn(x)                          %model_exchange_dyn(x) returns matrix Mest_dyn
 % Inital conditions
     Mest_dyn(:,1) = S_dyn(:,1);                                    %First Column of Mest_dyn set to First Column of Pyruvate Concentration

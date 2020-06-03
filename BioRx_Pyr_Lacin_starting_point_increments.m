@@ -1,4 +1,4 @@
-function [X,Sfit_dyn]=BioRx_Pyr_Lacin_starting_point_increments(S_dyn,A,filename)
+function [X,Sfit_dyn]=BioRx_Pyr_Lacin_starting_point_increments(S_dyn,A,filename,xknot,kinetic_paramter)
 % Written by Renuka for 5mm Bioreactor on December 18 2014
 %
 % S_dyn is a matrix of size # metabolites(pyr, lac_in)  by time
@@ -26,10 +26,20 @@ Nt = length(S_dyn);
 % InputFunction- X(4)=2.4 - 3.7 (for Pyr), x(5)=17.3-21.4
 %From UOK262 baseline dataset, X(4)=3.89+-0.4 , x(5)=15.7 +-1.6
 %From empty beads - T1_Pyr = 48.61+-.4, T1_Lacex=36.7+-.05
+if kinetic_paramter == "R1Lin"
+    X0 = [A(1),A(2),A(3),...
+        xknot, 0, .04];
+elseif kinetic_paramter == "kLP"
+    X0 = [A(1),A(2),A(3),...
+        1/25, xknot, .04];
+elseif kinetic_paramter == 'kMCT4'
+    X0 = [A(1),A(2),A(3),...
+        1/25, 0, xknot];
+else
 
 X0 = [A(1),A(2),A(3),...    %1/T1Pyr, Kpl, Flow
     1/25, 0, .04]; %1/T1Lin, Klp, K(MCT4)
-    
+end    
 function Mest_dyn = model_exchange_dyn(x)
 % Inital conditions
     Mest_dyn(:,1) = S_dyn(:,1);
