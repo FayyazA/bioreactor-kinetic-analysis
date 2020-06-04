@@ -34,8 +34,16 @@ elseif kinetic_paramter == "kPL"
 elseif kinetic_paramter == 'FP'
     X0 = [1/48,0.01,xknot,...
         (2/skewness(S_dyn(1,:)))^2,19,5e8];
+elseif kinetic_paramter == "k"
+    X0 = [1/48,0.01,xknot,...
+        xknot,19,5e8];
+elseif kinetic_paramter == "theta"
+    X0 = [1/48,0.01,xknot,...
+        (2/skewness(S_dyn(1,:)))^2,xknot,5e8];
+elseif kinetic_paramter == "gamma"
+    X0 = [1/48,0.01,xknot,...
+        (2/skewness(S_dyn(1,:)))^2,19,xknot];
 else
-
 X0 = [1/48,0.01,0.15,...    %1/T1P, Kpl,FlowPyr
     (2/skewness(S_dyn(1,:)))^2,19,5e8];  % alpha beta and constant values of gmma fit of input function
 end
@@ -89,7 +97,7 @@ rmse_pyr = rmse
 
 results = [X(1),X(2),X(3),Rsqrd_pyr_total,rmse];
 
-figure
+%figure
 plot(time,S_dyn,'k*--',time,Sfit_dyn,'r-'); 
     legend('pyr data','pyr fit');
 print(gcf,'-dtiff','-r300',strcat(filename,"FINAL",".tif"))
