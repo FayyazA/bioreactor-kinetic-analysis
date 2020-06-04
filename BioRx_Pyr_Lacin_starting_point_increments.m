@@ -101,7 +101,7 @@ Rsqrd_lac_in_magn=R(2)
 rmse_pyr = rmse(1)
 rmse_lac_in = rmse(2)
 
-figure
+%figure
 subplot(2,1,1)
 plot(time,(S_dyn(1,:)),'k*--',time,(Sfit_dyn(1,:)),'r-'); 
     legend('pyr magn data','pyr magn fit');
